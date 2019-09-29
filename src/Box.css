@@ -1,0 +1,25 @@
+.App > div {
+    width: 20vmin;
+    height: 20vmin;
+    padding: 0px;
+    margin: -1vmin 0 0 -1vmin;
+    border:1vmin solid white;
+    font-size:20vmin;
+    line-height: 20vmin;
+    text-align: center;
+    text-transform: uppercase;
+    border-collapse:collapse;
+    font-family: monospace;
+    transition: color 1s ease-out;
+    animation-duration: 5s;}
+
+/* #animate {
+    animation-name:example;
+    animation-duration: 5s;
+}
+
+@keyframes example {
+    0% {font-size:20vmin}
+    50% {font-size:25vmin}
+    100% {font-size:20vmin}
+  } */
