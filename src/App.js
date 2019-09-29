@@ -17,6 +17,8 @@ class App extends React.Component {
       winner: "",
       matrixCSS:Array(9).fill({color:"white"})};
   };
+
+  
   processWinner = (arrayCSS) => {
     this.setState({winner:this.state.lastTurn,
       lastTurn:(this.state.lastTurn==="X"?"O":"X"),
@@ -30,6 +32,9 @@ class App extends React.Component {
         } 
       })
   })};
+
+
+
   //Handling clicks 
   handleClick = (e) => {
     //saving clicked div Class to targetName
@@ -92,10 +97,12 @@ class App extends React.Component {
   return (
     <div >
       <div className="App" style={{left:(this.state.winner===''?"30vw":"10vw")}}>
-        <h1 >Let's Play the Game <br></br>Turn: {this.state.lastTurn==="X"?"O":"X"}</h1> 
+        <h1 >Let's Play the Game <br></br>Next turn <span>{this.state.winner===''?this.state.lastTurn==="X"?"O":"X":""}</span></h1> 
         {boxs}
       </div>
-      <h1 className="result" style={{opacity:(this.state.winner===''?0:1)}}>{(this.state.winner==="X")?"X is THE winner!!!":(this.state.winner==="O"?"O is THE winner!!!":(this.state.winner==="DRAW"?"DRAW!!!":""))}</h1>
+        <h1 className="result" style={{opacity:(this.state.winner===''?0:1)}}>
+          {(this.state.winner==="X")?"X is THE winner!!!":(this.state.winner==="O"?"O is THE winner!!!":(this.state.winner==="DRAW"?"DRAW!!!":""))}
+        </h1>
     </div>
   );
 }; 

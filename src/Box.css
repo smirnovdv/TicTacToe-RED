@@ -9,7 +9,7 @@
     text-align: center;
     text-transform: uppercase;
     border-collapse:collapse;
-    font-family: monospace;
+    font-family: 'Lexend Exa', sans-serif;
     transition: color 1s ease-out;
     animation-duration: 5s;}
 
@@ -23,3 +23,21 @@
     50% {font-size:25vmin}
     100% {font-size:20vmin}
   } */
+  @media only screen 
+  and (min-device-width : 375px) 
+  and (max-device-width : 667px) {
+    .App > div {
+        width: 25vmin;
+        height: 25vmin;
+        padding: 0px;
+        margin: -2vmin 0 0 -2vmin;
+        border:2vmin solid white;
+        font-size:25vmin;
+        line-height: 25vmin;
+        text-align: center;
+        text-transform: uppercase;
+        border-collapse:collapse;
+        font-family: 'Lexend Exa', sans-serif;
+        transition: color 1s ease-out;
+        animation-duration: 5s;}
+    };    
