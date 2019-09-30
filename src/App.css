@@ -32,7 +32,7 @@ h1 {
   top:10vw;
   left:45vw;
   z-index:10;
-  font-size:8vw;
+  font-size:6vw;
   font-family: 'Notable', sans-serif;
   color:red;
   transition: opacity 0.5s ease-out;
@@ -53,6 +53,37 @@ span {
    100% {color: white;}
   }
 
+  @keyframes startBlinking {
+    0% {color: black;font-size:3vw; }
+   50% {color: white;font-size:3.2vw;}
+   100% {color: black;font-size:3vw;}
+  }
+
+  @keyframes startBlinkingIphone {
+    0% {color: black;font-size:9vw; }
+   10% {color: white;font-size:10vw;}
+   100% {color: black;font-size:9vw;}
+  }
+
+button {
+  border:5px white solid;
+  position: absolute;
+  background-color:black;
+  width: 30vw;
+  height: 10vw;
+  font-size:3vw;
+  font-family: 'Notable', sans-serif;
+  animation-name: startBlinking;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  top:30vw;
+  left:45vw;
+  z-index:10;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  transition-delay: 2s;
+}
   @media only screen 
   and (min-device-width : 375px) 
   and (max-device-width : 667px) {
@@ -99,4 +130,24 @@ h1 {
   transition-delay: 0.5s;
   height:20vw;
   }
+button {
+  border:5px white solid;
+  position: absolute;
+  background-color:black;
+  width: 80vw;
+  height: 30vw;
+  font-size:30px;
+  font-family: 'Notable', sans-serif;
+  animation-name: startBlinkingIphone;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  top:140vw;
+  left:10vw;
+  z-index:10;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  transition-delay: 2s;
+}
   }
+

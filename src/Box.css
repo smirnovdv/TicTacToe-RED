@@ -11,18 +11,15 @@
     border-collapse:collapse;
     font-family: 'Lexend Exa', sans-serif;
     transition: color 1s ease-out;
-    animation-duration: 5s;}
-
-/* #animate {
-    animation-name:example;
-    animation-duration: 5s;
-}
+    animation-name:none;
+    animation-duration: 0.5s;
+   }
 
 @keyframes example {
     0% {font-size:20vmin}
     50% {font-size:25vmin}
     100% {font-size:20vmin}
-  } */
+  }
   @media only screen 
   and (min-device-width : 375px) 
   and (max-device-width : 667px) {

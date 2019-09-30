@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Box from './Box';
+import { Transition } from 'react-transition-group';
 
 
 class App extends React.Component {
@@ -15,11 +16,14 @@ class App extends React.Component {
       lastTurn: "",
       //who is the winner
       winner: "",
-      matrixCSS:Array(9).fill({color:"white"})};
+      matrixCSS:Array(9).fill({color:"white"}),
+      animated:""
+    };
   };
-
   
   processWinner = (arrayCSS) => {
+    document.getElementsByTagName("button")[0].style.visibility = "visible";
+    document.getElementsByTagName("button")[0].style.opacity = 1;
     this.setState({winner:this.state.lastTurn,
       lastTurn:(this.state.lastTurn==="X"?"O":"X"),
       onClick: '',
@@ -33,12 +37,11 @@ class App extends React.Component {
       })
   })};
 
-
-
   //Handling clicks 
   handleClick = (e) => {
     //saving clicked div Class to targetName
     let targetName = e.target.className
+    document.getElementsByClassName(targetName)[0].style.animationName = "example";
     //using a function to set state
     this.setState(() => {
       //iterating through state array changing  element if its index equal to clicked div identifier(class)
@@ -50,7 +53,9 @@ class App extends React.Component {
         }
       });
       //returning renewed state
-      return {matrix: matrix,lastTurn:(this.state.lastTurn==="X"?"O":"X")};
+      return {matrix: matrix,
+              lastTurn:(this.state.lastTurn==="X"?"O":"X"),
+              animated:"animated"};
     },()=>{ // callBack to check WIN conditions after new matrix is generated
         let m = this.state.matrix;
         if   (m[0] && m[0]===m[1] && m[1]===m[2]) {
@@ -77,7 +82,10 @@ class App extends React.Component {
         else if (m[2] && m[2]===m[4] && m[4]===m[6]) {
           this.processWinner([2,4,6])
         }
+        //Handling Draw
         else if (m.indexOf("")===-1) {
+          document.getElementsByTagName("button")[0].style.visibility = "visible";
+          document.getElementsByTagName("button")[0].style.opacity = 1;
           this.setState({winner:"DRAW",
             lastTurn:(this.state.lastTurn==="X"?"O":"X"),
             onClick: '',
@@ -87,14 +95,29 @@ class App extends React.Component {
     })
   }
 
+  newGame = () => {
+    this.setState({
+      onClick: this.handleClick,
+      // ES6 "fill" to create array with 9 equal elements
+      matrix: Array(9).fill(""),
+      // last turn X or O
+      lastTurn: "",
+      //who is the winner
+      winner: "",
+      matrixCSS:Array(9).fill({color:"white"}),
+      animated:""
+    });
+    document.getElementsByTagName("button")[0].style.visibility= "hidden";
+    document.getElementsByTagName("button")[0].style.transition= "none";
+    
+    };
     
   render(){
     const boxs = this.state.matrix.map((value,index) => 
     //spawning 9 Box Components
-    <Box data={index} turn={value} onClick={this.state.onClick} css={this.state.matrixCSS[index]}/>
+    <Box data={index} turn={value} onClick={this.state.onClick} css={this.state.matrixCSS[index]} animated={this.state.animated}/>
   );
- 
-  return (
+   return (
     <div >
       <div className="App" style={{left:(this.state.winner===''?"30vw":"10vw")}}>
         <h1 >Let's Play the Game <br></br>Next turn <span>{this.state.winner===''?this.state.lastTurn==="X"?"O":"X":""}</span></h1> 
@@ -103,6 +126,7 @@ class App extends React.Component {
         <h1 className="result" style={{opacity:(this.state.winner===''?0:1)}}>
           {(this.state.winner==="X")?"X is THE winner!!!":(this.state.winner==="O"?"O is THE winner!!!":(this.state.winner==="DRAW"?"DRAW!!!":""))}
         </h1>
+        <button onClick={this.newGame}>NEW GAME</button>  
     </div>
   );
 }; 
