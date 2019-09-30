@@ -17,7 +17,7 @@
 
 @keyframes example {
     0% {font-size:20vmin}
-    50% {font-size:25vmin}
+    50% {font-size:22vmin}
     100% {font-size:20vmin}
   }
   @media only screen 
