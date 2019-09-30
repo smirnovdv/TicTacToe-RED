@@ -13,7 +13,7 @@
     transition: color 1s ease-out;
     animation-name:none;
     animation-duration: 0.5s;
-   }
+}
 
 @keyframes example {
     0% {font-size:20vmin}

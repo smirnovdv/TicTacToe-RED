@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Box from './Box';
-import { Transition } from 'react-transition-group';
 
 
 class App extends React.Component {
