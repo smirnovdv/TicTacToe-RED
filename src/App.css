@@ -47,23 +47,7 @@ span {
     animation-delay: 2s;
   }
 
-  @keyframes blinking {
-    0% {color: white;}
-   25% {color: black;}
-   100% {color: white;}
-  }
-
-  @keyframes startBlinking {
-    0% {color: black;font-size:3vw; }
-   50% {color: white;font-size:3.2vw;}
-   100% {color: black;font-size:3vw;}
-  }
-
-  @keyframes startBlinkingIphone {
-    0% {color: black;font-size:9vw; }
-   10% {color: white;font-size:10vw;}
-   100% {color: black;font-size:9vw;}
-  }
+  
 
 button {
   border:5px white solid;
@@ -84,70 +68,81 @@ button {
   transition: visibility 0s, opacity 0.5s linear;
   transition-delay: 2s;
 }
-  @media only screen 
-  and (min-device-width : 375px) 
-  and (max-device-width : 667px) {
+
+
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) {
     
-*{
-  
-  margin:0;
-  padding:0;
-  background-color:black;
-  
-}
+  *
 
-h1 {
-  font-size: 2rem;
-  font-family: 'Notable', sans-serif;
-  margin-bottom: 5vw;
-}
-.App > div {
-  float:left;
-}
-
-.App > div:nth-child(3n+2) {
-  clear:left;
-}
-
-.App {
-  margin-left:10vw;
-  position:static;
-  top:5vw;
-  transition: left 0.5s ease-out;
-  color:white;
- }
-
-
-.result {
-  position:absolute;
-  top:120vw;
-  left:10vw;
-  z-index:10;
-  font-size:10vw;
-  font-family: 'Notable', sans-serif;
-  color:red;
-  transition: opacity 0.5s ease-out;
-  transition-delay: 0.5s;
-  height:20vw;
-  }
-button {
-  border:10px white solid;
-  position: absolute;
-  background-color:black;
-  width: 83vw;
-  height: 30vw;
-  font-size:33px;
-  font-family: 'Notable', sans-serif;
-  animation-name: startBlinkingIphone;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  top:2vw;
-  left:8vw;
-  z-index:10;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-  transition-delay: 2s;
-}
+  h1 {
+    font-size: 2rem;
+    font-family: 'Notable', sans-serif;
+    margin-bottom: 5vw;
   }
 
+  .App > div:nth-child(3n+2) {
+    clear:left;
+  }
+
+  .App {
+    margin-left:10vw;
+    position:static;
+    top:5vw;
+    transition: left 0.5s ease-out;
+    color:white;
+  }
+
+
+  .result {
+    position:absolute;
+    top:120vw;
+    left:10vw;
+    z-index:10;
+    font-size:10vw;
+    font-family: 'Notable', sans-serif;
+    color:red;
+    transition: opacity 0.5s ease-out;
+    transition-delay: 0.5s;
+    height:20vw;
+    }
+  button {
+    border:10px white solid;
+    position: absolute;
+    background-color:black;
+    width: 83vw;
+    height: 30vw;
+    font-size:33px;
+    font-family: 'Notable', sans-serif;
+    animation-name: startBlinkingIphone;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    top:2vw;
+    left:8vw;
+    z-index:10;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+    transition-delay: 2s;
+  }
+}
+
+@keyframes blinking {
+  0% {color: white;}
+ 25% {color: black;}
+ 100% {color: white;}
+}
+
+@keyframes startBlinking {
+  0% {color: black;font-size:3vw; }
+ 50% {color: white;font-size:3.2vw;}
+ 100% {color: black;font-size:3vw;}
+}
+
+@keyframes startBlinkingIphone {
+  0% {color: black;font-size:9vw; }
+ 10% {color: white;font-size:10vw;}
+ 100% {color: black;font-size:9vw;}
+}
