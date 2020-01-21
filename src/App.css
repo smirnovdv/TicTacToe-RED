@@ -36,7 +36,7 @@ h1 {
   font-family: 'Notable', sans-serif;
   color:red;
   transition: opacity 0.5s ease-out;
-  transition-delay: 0.5s;
+
   border: none;
   }
 
@@ -63,10 +63,7 @@ button {
   top:30vw;
   left:45vw;
   z-index:10;
-  visibility: hidden;
-  opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
-  transition-delay: 2s;
 }
 
 
@@ -122,10 +119,8 @@ and (max-device-width : 667px) {
     top:2vw;
     left:8vw;
     z-index:10;
-    visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
-    transition-delay: 2s;
   }
 }
 

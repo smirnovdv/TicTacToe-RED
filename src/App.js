@@ -13,16 +13,15 @@ class App extends React.Component {
       lastTurn: "",
       winner: "",
       matrixCSS: Array(9).fill({color:"white"}),
-      animated: ""
+      animated: "",
+      newGameButtonStyles:{visibility:"hidden", opacity:0}
     };
   };
   
   processWinner = (arrayCSS) => {
     //make New Game button visible
-    document.getElementsByTagName("button")[0].style.visibility = "visible";
-    document.getElementsByTagName("button")[0].style.opacity = 1;
-
     this.setState({
+      newGameButtonStyles:{visibility : "visible", opacity : 1, transitionDelay: "1s" },
       winner:this.state.lastTurn,
       lastTurn:(this.state.lastTurn==="X"?"O":"X"),
       onClick: '',
@@ -38,7 +37,7 @@ class App extends React.Component {
 
   handleClick = (e) => {
     let targetName = e.target.className;
-    if (document.getElementsByClassName(targetName)[0].innerText==="") {
+    if (e.target.innerText==="") {
     this.setState(() => {
       //iterating through state array changing  element if its index equal to clicked div identifier(class)
       let matrix = this.state.matrix.map((item, j) => {
@@ -79,9 +78,9 @@ class App extends React.Component {
         }
         //Handling Draw
         else if (m.indexOf("")===-1) {
-          document.getElementsByTagName("button")[0].style.visibility = "visible";
-          document.getElementsByTagName("button")[0].style.opacity = 1;
-          this.setState({winner:"DRAW",
+          this.setState({
+            newGameButtonStyles:{visibility : "visible", opacity : 1, transitionDelay: "1s" },
+            winner:"DRAW",
             lastTurn:(this.state.lastTurn==="X"?"O":"X"),
             onClick: '',
             matrixCSS:Array(9).fill({color:"red"})
@@ -93,6 +92,7 @@ class App extends React.Component {
 
   newGame = () => {
     this.setState({
+      newGameButtonStyles:{visibility : "hidden", opacity : 0 },
       onClick: this.handleClick,
       // ES6 "fill" to create array with 9 equal elements
       matrix: Array(9).fill(""),
@@ -103,9 +103,7 @@ class App extends React.Component {
       matrixCSS:Array(9).fill({color:"white"}),
       animated:""
     });
-    document.getElementsByTagName("button")[0].style.visibility= "hidden";
-    document.getElementsByTagName("button")[0].style.transition= "none";
-    
+ 
   };
     
   render(){
@@ -122,7 +120,7 @@ class App extends React.Component {
         <h1 className="result" style={{opacity:(this.state.winner===''?0:1)}}>
           {(this.state.winner==="X")?"X is THE winner!!!":(this.state.winner==="O"?"O is THE winner!!!":(this.state.winner==="DRAW"?"DRAW!!!":""))}
         </h1>
-        <button onClick={this.newGame}>NEW GAME</button>  
+        <button onClick={this.newGame} style={this.state.newGameButtonStyles}>NEW GAME</button>  
     </div>
   );
 }; 
