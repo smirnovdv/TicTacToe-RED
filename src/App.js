@@ -132,11 +132,12 @@ export default class App extends React.Component {
 
 
   handleClick = (e) => {
+    const target = e.target.className;
     if (e.target.innerText === "" && (this.state.lastTurn === this.state.machine || this.state.lastTurn === ""))   {
     this.setState(() => {
       //iterating through state array changing  element if its index equal to clicked div identifier(class)
       let matrix = this.state.matrix.map((item, j) => {
-        if (j === Number(e.target.className) && item==="") {
+        if (j === Number(target) && item==="") {
           return this.state.lastTurn==="X"?"O":"X";
         } else {
           return item;
