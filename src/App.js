@@ -3,7 +3,7 @@ import './App.css';
 import Box from './Box';
 
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +18,13 @@ class App extends React.Component {
     };
   };
 
+
   componentDidMount() {
-    this.randomPickForMachine()
+    this.randomPickFirstMove()
   }
 
-  randomPickForMachine() {
+
+  randomPickFirstMove() {
     if (Math.random() > 0.5) {
       this.setState({machine: "X"})
       setTimeout(this.autoHandleClick,1500)
@@ -30,15 +32,18 @@ class App extends React.Component {
     else {
       this.setState({machine: "O"})
     }
-  }
+}
+
   
   processWinner = (arrayCSS) => {
-    //make New Game button visible
     this.setState({
+      //make New Game button visible
       newGameButtonStyles:{visibility : "visible", opacity : 1, transitionDelay: "1s" },
-      winner:(this.state.lastTurn===this.state.machine) ? "Machine" : "Human",
-      lastTurn:(this.state.lastTurn==="X"?"O":"X"),
+      //determine the winner
+      winner:(this.state.lastTurn === this.state.machine) ? "Machine" : "Human",
+      //no clicking after a winner is determined
       onClick: '',
+      //highlighting winning combination
       matrixCSS:this.state.matrixCSS.map((item,index)=>{
         if (arrayCSS.indexOf(index)>-1){
           return {color:"red"};
@@ -50,30 +55,31 @@ class App extends React.Component {
   })
 };
 
-  checkWinCondition() {
+
+  checkWinCondition = () => {
       let m = this.state.matrix;
-      if   (m[0] && m[0]===m[1] && m[1]===m[2]) {
+      if   (m[0] && m[0] === m[1] && m[1] === m[2]) {
         this.processWinner([0,1,2])
       }
-      else if (m[3] && m[3]===m[4] && m[4]===m[5]) {
+      else if (m[3] && m[3] === m[4] && m[4] === m[5]) {
         this.processWinner([3,4,5])
       }
-      else if (m[6] && m[6]===m[7] && m[7]===m[8]) {
+      else if (m[6] && m[6] === m[7] && m[7] === m[8]) {
         this.processWinner([6,7,8])
       }
-      else if (m[0] && m[0]===m[3] && m[3]===m[6]) {
+      else if (m[0] && m[0] === m[3] && m[3] === m[6]) {
         this.processWinner([0,3,6])
       }
-      else if (m[1] && m[1]===m[4] && m[4]===m[7]) {
+      else if (m[1] && m[1] === m[4] && m[4] === m[7]) {
         this.processWinner([1,4,7])
       }
-      else if (m[2] && m[2]===m[5] && m[5]===m[8]) {
+      else if (m[2] && m[2] === m[5] && m[5] === m[8]) {
         this.processWinner([2,5,8])
       }
-      else if (m[0] && m[0]===m[4] && m[4]===m[8]) {
+      else if (m[0] && m[0] === m[4] && m[4] === m[8]) {
         this.processWinner([0,4,8])
       }
-      else if (m[2] && m[2]===m[4] && m[4]===m[6]) {
+      else if (m[2] && m[2] === m[4] && m[4] === m[6]) {
         this.processWinner([2,4,6])
       }
       //Handling Draw
@@ -91,6 +97,7 @@ class App extends React.Component {
       }
   }
 
+
   newGame = () => {
     this.setState({
       newGameButtonStyles:{visibility : "hidden", opacity : 0 },
@@ -104,11 +111,11 @@ class App extends React.Component {
       matrixCSS:Array(9).fill({color:"white"}),
       animated:""
     })
-    this.randomPickForMachine() 
+    this.randomPickFirstMove() 
   }
 
 
-  // algo click handeling
+  // algo move handling
   autoHandleClick = () => {
     let freeBoxes = this.state.matrix.map((item,index)=> item === "" ? index: "occupied").filter(x => x !== "occupied");
     console.log(freeBoxes)
@@ -123,13 +130,13 @@ class App extends React.Component {
     ,() => {this.checkWinCondition()})
   } 
 
+
   handleClick = (e) => {
-    let targetName = e.target.className;
     if (e.target.innerText === "" && (this.state.lastTurn === this.state.machine || this.state.lastTurn === ""))   {
     this.setState(() => {
       //iterating through state array changing  element if its index equal to clicked div identifier(class)
       let matrix = this.state.matrix.map((item, j) => {
-        if (j === Number(targetName) && item==="") {
+        if (j === Number(e.target.className) && item==="") {
           return this.state.lastTurn==="X"?"O":"X";
         } else {
           return item;
@@ -137,7 +144,7 @@ class App extends React.Component {
       });
       //returning renewed state
       return {matrix: matrix,
-              lastTurn:(this.state.lastTurn==="X"?"O":"X")};
+              lastTurn:(this.state.lastTurn === "X" ? "O" : "X")};
     },() => {
       this.checkWinCondition();
     });
@@ -146,25 +153,50 @@ class App extends React.Component {
   }
     
   render(){
+    //creating 9 Box Components via mapping
     const boxs = this.state.matrix.map((value,index) => 
-    //spawning 9 Box Components
-    <Box data={index} turn={value} onClick={this.state.onClick} css={this.state.matrixCSS[index]} animated={this.state.animated}/>
-  );
+      <Box data={index} turn={value} onClick={this.state.onClick} css={this.state.matrixCSS[index]} animated={this.state.animated}/>
+    );
+    //
+    const showCurrentPlayer = () => {
+        //first checking that game is still on, no winner yet
+        if (this.state.winner === '') {
+          //Machine haven't made its move yet, or it made last move or it is a draw (no empty boxes left) => return Human
+          if (this.state.machine === ('' || this.state.lastTurn) ||
+            (this.state.matrix.find(X => X !== "") === undefined)) {
+            return "Human"
+          } else {
+            return "Machine"
+          }
+        }
+        //there is a winner, so no next move
+        return ""
+    }
+
+    const showWinner = () => {
+      switch(this.state.winner) {
+        case "Machine":
+          return "Machine is THE winner!!!"
+        case "Human":
+          return "Human is THE winner!!!"
+        case "DRAW":
+          return "DRAW"
+      }
+    }
+
+    // Returning JSX content
    return (
     <div >
-      <div className="App" style={{left:(this.state.winner===''?"30vw":"10vw")}}>
-        <h1 >Let's Play the Game <br></br>Next turn  <span>{this.state.winner===''?
-                                                     this.state.machine === ('' || this.state.lastTurn) || (this.state.matrix.find(X => X !== "") === undefined) ? "Human" :"Machine"
-                                                     :""}</span></h1> 
+      {/* Game */}
+      <div className="App" style={{left:(this.state.winner === ''?"30vw":"10vw")}}>
+        <h1 >Let's Play the Game <br></br>Next turn <span>{showCurrentPlayer()}</span></h1> 
         {boxs}
       </div>
-        <h1 className="result" style={{opacity:(this.state.winner===''?0:1)}}>
-          {(this.state.winner==="Machine")?"Machine is THE winner!!!":(this.state.winner==="Human"?"Human is THE winner!!!":(this.state.winner==="DRAW"?"DRAW!!!":""))}
-        </h1>
-        <button onClick={this.newGame} style={this.state.newGameButtonStyles}>NEW GAME</button>  
+
+      {/* Result */}
+      <h1 className="result" style={{opacity:(this.state.winner === '' ? 0 : 1)}}>{showWinner()}</h1>
+      <button onClick={this.newGame} style={this.state.newGameButtonStyles}>NEW GAME</button>  
     </div>
   );
-}; 
+  }; 
 };
-
-export default App;
