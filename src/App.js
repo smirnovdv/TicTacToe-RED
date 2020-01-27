@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Box from './Box';
+import getRightMove from './AI'
 
 
 export default class App extends React.Component {
@@ -115,14 +116,12 @@ export default class App extends React.Component {
   }
 
 
-  // algo move handling
   autoHandleClick = () => {
-    let freeBoxes = this.state.matrix.map((item,index)=> item === "" ? index: "occupied").filter(x => x !== "occupied");
-    console.log(freeBoxes)
-    let targetBox = Math.floor(Math.random()*(freeBoxes.length));
+    let turn = (this.state.lastTurn === "X")?"O":"X"
+    let targetBox = getRightMove(this.state.matrix,this.state.machine,turn)
     console.log('target:' + targetBox)
     let newMatrix = this.state.matrix;
-    newMatrix[freeBoxes[targetBox]] = this.state.lastTurn === "X"?"O":"X";
+    newMatrix[targetBox] = this.state.lastTurn === "X"?"O":"X";
     console.log('new matrix' + newMatrix)
     this.setState({
       matrix: newMatrix,
