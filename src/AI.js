@@ -56,12 +56,13 @@ let getRightMove = function (iBrd, iPlayer, iTurn) {
             if (tvalue > maxValue) {
                 maxValue = tvalue;
                 result = i
+            } else if (tvalue === maxValue) {
+                // some randomization
+                result = Math.random()>0.5 ? result : i
             }
             console.log(i, tvalue)
         };
- 
     }
- 
     return result
 }
  
