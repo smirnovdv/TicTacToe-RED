@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import Box from './Box';
+import Cell from './Cell';
+import getRightMove from './AI'
 
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,19 +19,22 @@ class App extends React.Component {
     };
   };
 
+
   componentDidMount() {
     this.randomPickForMachine()
   }
 
+
   randomPickForMachine() {
-    if (Math.random() > 0.5) {
+    if (Math.random() >= 0.5) {
       this.setState({machine: "X"})
-      setTimeout(this.autoHandleClick,1500)
+      setTimeout(this.autoHandleClick,1000)
     }
     else {
       this.setState({machine: "O"})
     }
   }
+
   
   processWinner = (arrayCSS) => {
     //make New Game button visible
@@ -47,10 +51,11 @@ class App extends React.Component {
           return {color:"white"};
         } 
       })
-  })
-};
+    })
+  };
 
-  checkWinCondition() {
+
+  checkWinCondition = () => {
       let m = this.state.matrix;
       if   (m[0] && m[0]===m[1] && m[1]===m[2]) {
         this.processWinner([0,1,2])
@@ -91,6 +96,7 @@ class App extends React.Component {
       }
   }
 
+
   newGame = () => {
     this.setState({
       newGameButtonStyles:{visibility : "hidden", opacity : 0 },
@@ -110,18 +116,18 @@ class App extends React.Component {
 
   // algo click handeling
   autoHandleClick = () => {
-    let freeBoxes = this.state.matrix.map((item,index)=> item === "" ? index: "occupied").filter(x => x !== "occupied");
-    console.log(freeBoxes)
-    let targetBox = Math.floor(Math.random()*(freeBoxes.length));
+    let turn = (this.state.lastTurn === "X")?"O":"X"
+    let targetBox = getRightMove(this.state.matrix,this.state.machine,turn)
     console.log('target:' + targetBox)
     let newMatrix = this.state.matrix;
-    newMatrix[freeBoxes[targetBox]] = this.state.lastTurn === "X"?"O":"X";
+    newMatrix[targetBox] = this.state.lastTurn === "X"?"O":"X";
     console.log('new matrix' + newMatrix)
     this.setState({
       matrix: newMatrix,
       lastTurn:(this.state.lastTurn==="X"?"O":"X")}
     ,() => {this.checkWinCondition()})
   } 
+
 
   handleClick = (e) => {
     let targetName = e.target.className;
@@ -142,29 +148,27 @@ class App extends React.Component {
       this.checkWinCondition();
     });
     };
-
   }
+
     
   render(){
     const boxs = this.state.matrix.map((value,index) => 
     //spawning 9 Box Components
-    <Box data={index} turn={value} onClick={this.state.onClick} css={this.state.matrixCSS[index]} animated={this.state.animated}/>
+    <Cell data={index} turn={value} onClick={this.state.onClick} css={this.state.matrixCSS[index]} animated={this.state.animated}/>
   );
-   return (
-    <div >
-      <div className="App" style={{left:(this.state.winner===''?"30vw":"10vw")}}>
-        <h1 >Let's Play the Game <br></br>Next turn  <span>{this.state.winner===''?
-                                                     this.state.machine === ('' || this.state.lastTurn) || (this.state.matrix.find(X => X !== "") === undefined) ? "Human" :"Machine"
-                                                     :""}</span></h1> 
-        {boxs}
-      </div>
+    return (
+      <div >
+        <div className="App" style={{left:(this.state.winner===''?"30vw":"10vw")}}>
+          <h1 >Let's Play the Game <br></br>Next turn  <span>{this.state.winner===''?
+                                                      this.state.machine === ('' || this.state.lastTurn) || (this.state.matrix.find(X => X !== "") === undefined) ? "Human" :"Machine"
+                                                      :""}</span></h1> 
+          {boxs}
+        </div>
         <h1 className="result" style={{opacity:(this.state.winner===''?0:1)}}>
           {(this.state.winner==="Machine")?"Machine is THE winner!!!":(this.state.winner==="Human"?"Human is THE winner!!!":(this.state.winner==="DRAW"?"DRAW!!!":""))}
         </h1>
         <button onClick={this.newGame} style={this.state.newGameButtonStyles}>NEW GAME</button>  
-    </div>
+      </div>
   );
-}; 
-};
-
-export default App;
+  }; 
+}

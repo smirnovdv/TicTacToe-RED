@@ -1,7 +1,7 @@
 import React from 'react';
-import  "./Box.css"
+import  "./Cell.css"
 
-class Box extends React.Component {
+export default class Cell extends React.Component {
     
     render(){
         return (
@@ -9,4 +9,3 @@ class Box extends React.Component {
         )
     }
 } 
-export default Box;
