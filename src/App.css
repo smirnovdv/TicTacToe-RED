@@ -139,7 +139,8 @@ and (max-device-width : 667px) {
 
 @keyframes startBlinking {
   0% {color: black;font-size:3vw; }
- 50% {color: white;font-size:3.2vw;}
+ 10% {color: white;font-size:3.1vw;}
+ 90% {color: white;font-size:3.1vw;}
  100% {color: black;font-size:3vw;}
 }
 

@@ -28,7 +28,7 @@ export default class App extends React.Component {
   randomPickForMachine() {
     if (Math.random() >= 0.5) {
       this.setState({machine: "X"})
-      setTimeout(this.autoHandleClick,1000)
+      setTimeout(this.autoHandleClick,1)
     }
     else {
       this.setState({machine: "O"})
@@ -42,7 +42,7 @@ export default class App extends React.Component {
       newGameButtonStyles:{visibility : "visible", opacity : 1, transitionDelay: "1s" },
       winner:(this.state.lastTurn===this.state.machine) ? "Machine" : "Human",
       lastTurn:(this.state.lastTurn==="X"?"O":"X"),
-      onClick: '',
+      onClick: ()=>{},
       matrixCSS:this.state.matrixCSS.map((item,index)=>{
         if (arrayCSS.indexOf(index)>-1){
           return {color:"red"};
