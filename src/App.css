@@ -40,7 +40,7 @@ h1 {
   border: none;
   }
 
-span {
+span {g
     animation-name: blinking;
     animation-duration: 1s;
     animation-iteration-count: infinite;
@@ -96,7 +96,7 @@ and (max-device-width : 667px) {
   .result {
     position:absolute;
     top:120vw;
-    left:5vw;
+    left:25vw;
     z-index:10;
     font-size: 2rem;
     font-family: 'Notable', sans-serif;
