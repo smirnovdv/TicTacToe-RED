@@ -4,7 +4,6 @@ let getRightMove = function (iBrd, iPlayer, iTurn) {
         newBoard[target] = turn
         return newBoard
     }
-
     let valueMove = (board, player, turn, index) => {
         const newBoard = newBoardFunc(board, turn, index);
         let result = checkWin(newBoard);
@@ -46,7 +45,6 @@ let getRightMove = function (iBrd, iPlayer, iTurn) {
         }
         return 'next'
     }
-
     let maxValue = -Infinity;
     let result = null;
     for (let i = 0; i <= iBrd.length; i++) {
