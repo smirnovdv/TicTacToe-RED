@@ -1,10 +1,11 @@
-let getRightMove = function (iBrd, iPlayer, iTurn) {
-    let newBoardFunc = (board, turn, target) => {
+//i stands for input 
+const getRightMove = function (iBrd, iPlayer, iTurn) {
+    const newBoardFunc = (board, turn, target) => {
         let newBoard = [...board]
         newBoard[target] = turn
         return newBoard
     }
-    let valueMove = (board, player, turn, index) => {
+    const valueMove = (board, player, turn, index) => {
         const newBoard = newBoardFunc(board, turn, index);
         let result = checkWin(newBoard);
         if (result === 'win') {
@@ -28,8 +29,8 @@ let getRightMove = function (iBrd, iPlayer, iTurn) {
             return (turn === player) ? Math.min(...count) : Math.max(...count)
         };
     }
-    let checkWin = (board) => {
-        let b = board;
+    const checkWin = (board) => {
+        const b = board;
         if ((b[0] && b[0] === b[1] && b[1] === b[2]) ||
             (b[3] && b[3] === b[4] && b[4] === b[5]) ||
             (b[6] && b[6] === b[7] && b[7] === b[8]) ||
